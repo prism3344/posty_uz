@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 <head>
     <style>
@@ -31,6 +31,23 @@
             margin-bottom: 40px;
         }
 
+        .eyes-container {
+            display: flex;
+            gap: 30px; 
+        }
+
+        .eye {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: blink 5s infinite;
+        }
 
         .pupil {
             width: 40px;
@@ -41,88 +58,18 @@
         }
 
    
+        @keyframes blink {
+            0%, 94%, 100% { transform: scaleY(1); }
+            97% { transform: scaleY(0.05); }
+        }
     </style>
 </head>
 
 <body>
-        <div id="cont">
-        <input id="headers" placeholder="tytuł maks. 30 znaków" maxlength="30">
-        <br>
-        <textarea id="tekst" style="width: 500px; height: 500px;" placeholder="maks. do zaakceptowania 500 znaków chyba, że nie będzie dało się upchnąć artykułu w 500 znakach to może być maks 1000" maxlength="1000"></textarea>
-        <br>
-        <p id="licznik-znakow">aktualna liczba znaków: 0</p>
-        <br>
-        <button id="btn">wyślij zgłoszenie</button>
-        </div> 
-        
-
-    <script>
-        let con = document.getElementById('cont')
-        function send() {
-            let ti = document.getElementById('headers').value;
-            let te = document.getElementById('tekst').value;
-            
-
-            if (te.length > 500) {
-                alert('Niebezpieczna granica(ponad 500 znaków)! twój artykuł może zostać odrzucony chyba, że będzie wystarczająco dobry');
-            } 
-
-            if (ti.length > 30) {
-                alert('tytuł jest zbyt długi')
-            }
-            if (ti.length == 0) {
-                alert('Tytuł nie może być pusty');
-            }
-
-
-            if (te.length == 0) {
-                alert('Tekst nie może być pusty');
-            }
-
-
-            if (te.length > 1000) {
-                alert('twój artykuł nie mógł zostać wysłany(ponad 1000 znaków)')
-            }
-
-
-
-            if (te.length < 1001 && ti.length < 31) {fetch('https://apimakaw.onrender.com/art/addart', {
-            method: 'POST',
-            body: JSON.stringify({
-                title: document.getElementById('headers').value,
-                body: te = document.getElementById('tekst').value,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            })
-            con.innerHTML = '<h1>ZGŁOSZENIE DODANE</h1>'
-            }
-        }
-
-        btn.addEventListener("click", send);
-
-        const input = document.getElementById('tekst');
-        const licznik = document.getElementById('licznik-znakow');
-        input.addEventListener('input', () => {
-        let dlugosc = input.value.length;
-            licznik.textContent = `aktualna liczba znaków: ${dlugosc}`;
-        });
-
-
-    </script>
-
-
-
-    
-
-
-    
+    <h1>Artykuły użytkowników:</h1>
+    <br>
+    <br>
+    <button><a href="https://prism3344.github.io/add_maka/">DODAJ SWÓJ POST</a></button>
 </body>
 
 </html>
-
-
-
-
-
