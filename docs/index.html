@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        p, a {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        a { font-size: 20px; text-decoration: none; color: #007bff; }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 50px; 
+            background-color: #222;
+            background-image: url('https://github.com/prism3344/d11/blob/main/docs/tlo.png?raw=true');
+            background-size: cover;
+            text-align: center;
+            color: white;
+        }
+
+        .content-wrapper {
+            margin-bottom: 40px;
+        }
+
+
+        .pupil {
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            transition: 0.1s linear; 
+        }
+
+   
+    </style>
+</head>
+
+<body>
+        <div id="cont">
+        <input id="headers" placeholder="tytuł maks. 30 znaków" maxlength="30">
+        <br>
+        <textarea id="tekst" style="width: 500px; height: 500px;" placeholder="maks. do zaakceptowania 500 znaków chyba, że nie będzie dało się upchnąć artykułu w 500 znakach to może być maks 1000" maxlength="1000"></textarea>
+        <br>
+        <p id="licznik-znakow">aktualna liczba znaków: 0</p>
+        <br>
+        <button id="btn">wyślij zgłoszenie</button>
+        </div> 
+        
+
+    <script>
+        let con = document.getElementById('cont')
+        function send() {
+            let ti = document.getElementById('headers').value;
+            let te = document.getElementById('tekst').value;
+            
+
+            if (te.length > 500) {
+                alert('Niebezpieczna granica(ponad 500 znaków)! twój artykuł może zostać odrzucony chyba, że będzie wystarczająco dobry');
+            } 
+
+            if (ti.length > 30) {
+                alert('tytuł jest zbyt długi')
+            }
+            if (ti.length == 0) {
+                alert('Tytuł nie może być pusty');
+            }
+
+
+            if (te.length == 0) {
+                alert('Tekst nie może być pusty');
+            }
+
+
+            if (te.length > 1000) {
+                alert('twój artykuł nie mógł zostać wysłany(ponad 1000 znaków)')
+            }
+
+
+
+            if (te.length < 1001 && ti.length < 31) {fetch('https://apimakaw.onrender.com/art/addart', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: document.getElementById('headers').value,
+                body: te = document.getElementById('tekst').value,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            })
+            con.innerHTML = '<h1>ZGŁOSZENIE DODANE</h1>'
+            }
+        }
+
+        btn.addEventListener("click", send);
+
+        const input = document.getElementById('tekst');
+        const licznik = document.getElementById('licznik-znakow');
+        input.addEventListener('input', () => {
+        let dlugosc = input.value.length;
+            licznik.textContent = `aktualna liczba znaków: ${dlugosc}`;
+        });
+
+
+    </script>
+
+
+
+    
+
+
+    
+</body>
+
+</html>
+
+
+
+
+
